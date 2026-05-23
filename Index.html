@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alessandro Mustaccio — Senior Process Development Engineer</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,800;9..144,900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0a0e14;
+    --bg-2:      #0f141c;
+    --panel:     #131a24;
+    --line:      #1e2836;
+    --line-2:    #2a3849;
+    --ink:       #e6edf5;
+    --ink-dim:   #8a98ab;
+    --ink-soft:  #5a6678;
+    --accent:    #4cc9f0;
+    --accent-2:  #f5b700;
+    --accent-3:  #ff5b6e;
+    --grid-color: rgba(76, 201, 240, 0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    font-size: 14px;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at top right, rgba(76,201,240,0.08), transparent 60%),
+                radial-gradient(ellipse at bottom left, rgba(245,183,0,0.04), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 32px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- TOP STATUS BAR ---------- */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 11px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 60px;
+  }
+  .status-bar .dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 8px;
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .status-bar .right span { margin-left: 24px; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: end;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 64px;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 120px; height: 2px;
+    background: var(--accent);
+  }
+
+  .hero-meta {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-meta::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  h1 .last { font-weight: 800; font-style: italic; }
+
+  .role {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    color: var(--ink-dim);
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+  }
+  .role span.bracket { color: var(--accent); }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .contact a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s; }
+  .contact a:hover { color: var(--accent); }
+  .contact .label { color: var(--ink-soft); margin-right: 6px; }
+
+  .hero-side {
+    text-align: right;
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .hero-side .big-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 88px;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section { margin-bottom: 72px; position: relative; }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    align-items: baseline;
+    margin-bottom: 36px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--accent); font-weight: 300; }
+
+  /* ---------- SUMMARY ---------- */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  .summary-text {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 300;
+  }
+  .summary-text strong {
+    color: var(--accent);
+    font-weight: 600;
+    font-style: italic;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .stat {
+    background: var(--bg-2);
+    padding: 24px 20px;
+    transition: background 0.3s;
+  }
+  .stat:hover { background: var(--panel); }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 42px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- EXPERIENCE TIMELINE ---------- */
+  .exp-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    transition: background 0.3s;
+    position: relative;
+  }
+  .exp-item:first-child { border-top: none; padding-top: 8px; }
+  .exp-item:hover { background: rgba(76, 201, 240, 0.02); }
+  .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -20px; top: 32px;
+    width: 8px; height: 8px;
+    background: var(--line-2);
+    border-radius: 50%;
+  }
+  .exp-item.current::before {
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .exp-meta {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .exp-period {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .exp-location {
+    color: var(--ink-soft);
+  }
+
+  .exp-content h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .exp-company {
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .exp-content ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  .exp-content li {
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    line-height: 1.6;
+  }
+  .exp-content li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ---------- SKILLS GRID ---------- */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .skill-card {
+    background: var(--bg-2);
+    padding: 28px 24px;
+    transition: all 0.3s;
+  }
+  .skill-card:hover {
+    background: var(--panel);
+    transform: translateY(-2px);
+  }
+  .skill-card h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+  .skill-card .skill-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .skill-card ul {
+    list-style: none;
+  }
+  .skill-card li {
+    font-size: 12.5px;
+    color: var(--ink-dim);
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .skill-card li:last-child { border-bottom: none; }
+
+  /* ---------- LANGUAGES & CERT ---------- */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .info-block {
+    border: 1px solid var(--line);
+    padding: 32px;
+    background: var(--bg-2);
+  }
+  .info-block h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .lang-item:last-child { border-bottom: none; }
+  .lang-name {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .lang-level {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .lang-bar {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    margin: 0 16px;
+    position: relative;
+  }
+  .lang-bar::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    height: 1px;
+    background: var(--accent);
+  }
+  .lang-bar.native::after { width: 100%; }
+  .lang-bar.intermediate::after { width: 60%; }
+  .lang-bar.b1::after { width: 55%; }
+
+  .cert-item {
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .cert-item:last-child { border-bottom: none; }
+  .cert-title {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .cert-desc {
+    font-size: 11px;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  footer .pulse {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+  }
+
+  /* ---------- DECORATIVE CHIP MARK ---------- */
+  .chip-mark {
+    position: absolute;
+    top: 100px;
+    right: -40px;
+    width: 80px;
+    height: 80px;
+    opacity: 0.3;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 880px) {
+    .container { padding: 24px 20px 60px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-side { text-align: left; }
+    .hero-side .big-num { font-size: 64px; }
+    .section-header { grid-template-columns: 1fr; gap: 8px; }
+    .summary-grid { grid-template-columns: 1fr; gap: 32px; }
+    .exp-item { grid-template-columns: 1fr; gap: 12px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .bottom-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 56px; }
+    .status-bar .right span { margin-left: 12px; font-size: 9px; }
+  }
+
+  /* ---------- FADE-IN ANIMATION ---------- */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- STATUS BAR -->
+  <div class="status-bar fade-in">
+    <div><span class="dot"></span>PROFILE / ACTIVE / OPEN TO OPPORTUNITIES</div>
+    <div class="right">
+      <span>REF · MUSTACCIO_A</span>
+      <span>REV · 2026</span>
+      <span>CH · DINTIKON</span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero fade-in delay-1">
+    <div>
+      <div class="hero-meta">CURRICULUM VITAE / SEMICONDUCTOR ENGINEERING</div>
+      <h1>Alessandro<br><span class="last">Mustaccio.</span></h1>
+      <div class="role">
+        <span class="bracket">{ </span>Senior Process Development Engineer<span class="bracket"> · </span>Lithography<span class="bracket"> }</span>
+      </div>
+      <div class="contact">
+        <div><span class="label">TEL</span><a href="tel:+41787974183">+41 78 797 41 83</a></div>
+        <div><span class="label">MAIL</span><a href="mailto:amustaccio@gmail.com">amustaccio@gmail.com</a></div>
+        <div><span class="label">LOC</span>Dintikon, AG · Switzerland</div>
+        <div><span class="label">PERMIT</span>C</div>
+      </div>
+    </div>
+    <div class="hero-side">
+      <span class="big-num">26+</span>
+      Years in<br>semiconductor<br>industry
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="section fade-in delay-2">
+    <div class="section-header">
+      <div class="section-num">§ 01 / Profile</div>
+      <div class="section-title">Process expertise, <em>refined over decades</em>.</div>
+    </div>
+    <div class="summary-grid">
+      <p class="summary-text">
+        For over <strong>26 years</strong> I have worked in the semiconductor industry, performing complex manufacturing processes and operating sophisticated equipment in <strong>clean-room environments</strong>. Exposure to a wide variety of materials, tools and contexts has built the ability to <strong>learn rapidly</strong> and be immediately productive in any new working condition. Detail-focused, team-oriented, and committed to continuous improvement.
+      </p>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num">26+</div>
+          <div class="stat-label">Years experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Roles in industry</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Languages (IT/DE/EN)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Pro certifications</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section fade-in delay-3">
+    <div class="section-header">
+      <div class="section-num">§ 02 / Experience</div>
+      <div class="section-title">Career <em>timeline</em>.</div>
+    </div>
+
+    <div class="exp-item current">
+      <div class="exp-meta">
+        <span class="exp-period">05.2022 — Present</span>
+        <span class="exp-location">Axetris AG · Kaegiswil</span>
+      </div>
+      <div class="exp-content">
+        <h3>Lithography Senior Process Development Engineer</h3>
+        <div class="exp-company">Axetris AG</div>
+        <ul>
+          <li>Development of high-volume production processes for new products</li>
+          <li>Design and verification of robust, reproducible manufacturing processes</li>
+          <li>Evaluation and introduction of new technologies, materials and equipment to increase future production efficiency</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">01.2022 — 04.2022</span>
+        <span class="exp-location">Scrona Ltd · Zurich</span>
+      </div>
+      <div class="exp-content">
+        <h3>Lithography Process Engineer</h3>
+        <div class="exp-company">Scrona Ltd</div>
+        <ul>
+          <li>Setup and execution of full lithographic stack — coating, lamination, exposure, development</li>
+          <li>Fabrication of new MEMS print-head chips with full analysis & reporting</li>
+          <li>Evaluation of new process flows for technical and economic feasibility</li>
+          <li>Clean-room and tool management; consumables and spare-parts planning</li>
+          <li>Participation in R&D projects with customers and partners</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">06.2020 — 12.2021</span>
+        <span class="exp-location">Axetris AG · Kaegiswil</span>
+      </div>
+      <div class="exp-content">
+        <h3>Lithography Process Engineer</h3>
+        <div class="exp-company">Axetris AG</div>
+        <ul>
+          <li>Evaluation and qualification of new equipment and materials</li>
+          <li>Ordinary maintenance of lithography tools</li>
+          <li>Owner of working instructions and their implementation</li>
+          <li>2nd-level technical support for wafer/chip fabrication</li>
+          <li>Training of production staff; failure analysis and troubleshooting</li>
+          <li>R&D-to-production transfer and integration support</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">05.2019 — 05.2020</span>
+        <span class="exp-location">Axetris AG · Kaegiswil</span>
+      </div>
+      <div class="exp-content">
+        <h3>Lithography Process Technician</h3>
+        <div class="exp-company">Axetris AG</div>
+        <ul>
+          <li>1st-level technical support for fabrication and equipment</li>
+          <li>Training of production staff; quality monitoring of processes & products</li>
+          <li>Execution of complex / non-recurring engineering processes</li>
+          <li>Maintenance and calibration of production equipment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">09.2014 — 11.2018</span>
+        <span class="exp-location">CSEM Center · Muttenz</span>
+      </div>
+      <div class="exp-content">
+        <h3>R&D Engineer &amp; Clean-room Manager</h3>
+        <div class="exp-company">CSEM Center</div>
+        <ul>
+          <li>Development of new processes in printed electronics (ink-jet & screen printing) and micro/nano surface structuring</li>
+          <li>Routine and preventive maintenance planning for equipment and infrastructure</li>
+          <li>Constant monitoring of environmental conditions</li>
+          <li>Evaluation and acquisition of new equipment</li>
+          <li>Cost optimisation on external services and spare parts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">11.2010 — 06.2014</span>
+        <span class="exp-location">3Sun · Catania</span>
+      </div>
+      <div class="exp-content">
+        <h3>Device Engineer</h3>
+        <div class="exp-company">3Sun</div>
+        <ul>
+          <li>Construction of analysis laboratory in start-up phase, on schedule</li>
+          <li>Support to Sharp Team on installation of electrical analysis & characterization equipment for PV modules (QE, light degradation)</li>
+          <li>Transfer of skills acquired during training in Japan to new colleagues</li>
+          <li>Troubleshooting and yield improvement via electrical characterization</li>
+          <li>Calibration and maintenance of solar simulators</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">04.2004 — 10.2010</span>
+        <span class="exp-location">STMicroelectronics · Catania</span>
+      </div>
+      <div class="exp-content">
+        <h3>Printing &amp; Patterning Process Engineer</h3>
+        <div class="exp-company">STMicroelectronics</div>
+        <ul>
+          <li>Characterization and consolidation of NanoImprinting, E-beam and Screen-Printing processes</li>
+          <li>Equipment evaluation and acquisition</li>
+          <li>Prototyping and small production runs for customers</li>
+          <li>Morphological analysis via SEM and optical microscopy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">09.2000 — 04.2004</span>
+        <span class="exp-location">STMicroelectronics · Catania</span>
+      </div>
+      <div class="exp-content">
+        <h3>Lithography Process Technician</h3>
+        <div class="exp-company">STMicroelectronics</div>
+        <ul>
+          <li>Support to R&D for characterization and manufacturing transfer of new lithography technologies</li>
+          <li>Creation of measurement and process recipes for new materials</li>
+          <li>Support to production during new-product transfer phase</li>
+          <li>Recipe optimisation and monitoring of specification parameters</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <span class="exp-period">03.1998 — 08.2000</span>
+        <span class="exp-location">Zappalà SPA · Zafferana Etnea</span>
+      </div>
+      <div class="exp-content">
+        <h3>Machines Responsible &amp; Packaging Operator</h3>
+        <div class="exp-company">Zappalà SPA</div>
+        <ul>
+          <li>Control of packaging and pasteurization processes</li>
+          <li>Evaluation and release of new line for fresh cream & milk and packaging machines</li>
+          <li>Maintenance of production line and laboratory checks of product specs</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">§ 03 / Competencies</div>
+      <div class="section-title">Skills <em>matrix</em>.</div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="skill-num">01 / Technical</span>
+        <h4>Process &amp; Manufacturing</h4>
+        <ul>
+          <li>Lithography (full stack)</li>
+          <li>NanoImprinting / E-beam</li>
+          <li>Screen &amp; Ink-jet printing</li>
+          <li>MEMS fabrication</li>
+          <li>SEM &amp; optical microscopy</li>
+          <li>Clean-room operations</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="skill-num">02 / Methodology</span>
+        <h4>Quality &amp; Improvement</h4>
+        <ul>
+          <li>Statistical Process Control (SPC)</li>
+          <li>Design of Experiments (DoE)</li>
+          <li>Lean Six Sigma — Green Belt</li>
+          <li>ISO 9001:2015 — Internal Auditor</li>
+          <li>Failure analysis &amp; troubleshooting</li>
+          <li>R&D-to-production transfer</li>
+        </ul>
+      </div>
+      <div class="skill-card">
+        <span class="skill-num">03 / Soft skills</span>
+        <h4>Leadership &amp; People</h4>
+        <ul>
+          <li>Effective communication</li>
+          <li>Advanced problem-solving</li>
+          <li>Team management</li>
+          <li>Adaptability &amp; flexibility</li>
+          <li>Organisational &amp; time management</li>
+          <li>Analytical decision-making</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM: LANGUAGES + CERT + EDU -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">§ 04 / Credentials</div>
+      <div class="section-title">Languages, <em>certifications &amp; education</em>.</div>
+    </div>
+    <div class="bottom-grid">
+      <div class="info-block">
+        <h4>// Languages</h4>
+        <div class="lang-item">
+          <span class="lang-name">Italian</span>
+          <span class="lang-bar native"></span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">German</span>
+          <span class="lang-bar b1"></span>
+          <span class="lang-level">B1 · Intermediate</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">English</span>
+          <span class="lang-bar intermediate"></span>
+          <span class="lang-level">Intermediate</span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <h4>// Certifications &amp; Education</h4>
+        <div class="cert-item">
+          <div class="cert-title">ISO 9001:2015 Internal Auditor</div>
+          <div class="cert-desc">Quality management certification</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">Lean Six Sigma — Green Belt</div>
+          <div class="cert-desc">Manufacturing certification</div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-title">IPSIA Maiorana · Sabin–Giarre</div>
+          <div class="cert-desc">High school diploma · Electronic Technician (PLCs, digital logic) · 1991–1995</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div><span class="pulse"></span>END OF DOCUMENT · MUSTACCIO_A · REV.2026</div>
+    <div>CH · DINTIKON · AG</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
